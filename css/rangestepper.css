@@ -1,0 +1,57 @@
+/**
+ * rangestepper.css 0.1
+ *
+ *
+ * (c) 2014+ Radu-Sebastian Amarie
+ * http://skidding.mit-license.org
+ */
+
+
+
+.rangestepper {
+  width: 100%;
+  position: relative;
+
+  text-align: justify;
+  -ms-text-justify: distribute-all-lines;
+  text-justify: distribute-all-lines;
+}
+
+.rangestepper .step {
+  width: 15px;
+  height: 15px;
+  background-color: #2e2e2e;
+
+  border-radius: 50%;
+
+  vertical-align: top;
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+}
+
+.rangestepper .rangeline{
+  position: absolute;
+  top: 5px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+
+  height: 5px;
+  background-color: #2e2e2e;
+  z-index: -1;
+}
+
+.rangestepper .step .active{
+  width: 10px;
+  height: 10px;
+  background-color:#00ff00;
+  border-radius: 50%;
+}
+
+.rangestepper .stretch {
+  width: 100%;
+  display: inline-block;
+  font-size: 0;
+  line-height: 0
+}
