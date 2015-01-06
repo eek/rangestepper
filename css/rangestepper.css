@@ -10,6 +10,7 @@
 
 .rangestepper {
   width: 100%;
+  height: 15px;
   position: relative;
 
   text-align: justify;
@@ -22,6 +23,38 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.dragger {
+  margin-top: -23px;
+  text-align: center;
+  display: block;
+}
+
+.dragger .arrow {
+  width: 14px;
+  height: 16px;
+  position: relative;
+  background: #41c00e;
+  display: inline-block;
+  border-radius: 2px 2px 0 0;
+}
+
+.dragger .arrow:before {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.dragger .arrow:before {
+  border-top-color: #41c00e;
+  border-width: 7px;
+  margin-left: -7px;
 }
 
 .rangestepper .step {
@@ -54,9 +87,9 @@
 .rangestepper .step .active{
   width: 10px;
   height: 10px;
-  background-color:#00ff00;
+  background-color:#41c00e;
   border-radius: 50%;
-  margin: 15%;
+  display: inline-block;
 }
 
 .rangestepper .stretch {

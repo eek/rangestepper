@@ -27,7 +27,7 @@
 
     //Create the actual steps and their value
     for ( var i = 0; i <= steps; i++ ){
-        var newstep = $( "<div class='step' data-id='" + (minval+i) + "' />" );
+        var newstep = $( "<div class='step' data-val='" + (minval+i) + "' />" );
         this.append(newstep);
 
         //We need a space to center them with variable space between.
@@ -40,7 +40,10 @@
         $('.rangestepper .step').html('');
 
         //Creat the active node
-        $(this).html("<div class='active'></div>");
+        $(this).html("<div class='dragger'><div class='arrow'></div><div class='active'></div></div>");
+
+        //Update the current value
+        $(this).parent().data( 'val', $(this).data('val') );
     });
 
     return this;
