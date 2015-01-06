@@ -40,7 +40,7 @@
         $('.rangestepper .step').html('');
 
         //Creat the active node
-        $(this).html("<div class='dragger'><div class='arrow'></div><div class='active'></div></div>");
+        $(this).html("<div class='dragger'><div class='arrow'>&#8801;</div><div class='active'></div></div>");
 
         //Update the current value
         $(this).parent().data( 'val', $(this).data('val') );
