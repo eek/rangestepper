@@ -38,6 +38,8 @@
   background: #41c00e;
   display: inline-block;
   border-radius: 2px 2px 0 0;
+  color:#2e2e2e;
+  cursor: ew-resize;
 }
 
 .dragger .arrow:before {
