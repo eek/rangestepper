@@ -29,6 +29,7 @@
   margin-top: -23px;
   text-align: center;
   display: block;
+  position:relative;
 }
 
 .dragger .arrow {
