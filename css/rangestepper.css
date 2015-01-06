@@ -24,6 +24,8 @@
 
   border-radius: 50%;
 
+  cursor:pointer;
+
   vertical-align: top;
   display: inline-block;
   *display: inline;
@@ -47,6 +49,7 @@
   height: 10px;
   background-color:#00ff00;
   border-radius: 50%;
+  margin: 15%;
 }
 
 .rangestepper .stretch {

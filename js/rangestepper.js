@@ -36,7 +36,11 @@
       this.append( '<span class="stretch"></span><div class="rangeline"></div>');
 
     $(document).on('click', '.rangestepper .step', function(){
-        $(this).append("<div class='active'></div>");
+        //Empty other active steps
+        $('.rangestepper .step').html('');
+
+        //Creat the active node
+        $(this).html("<div class='active'></div>");
     });
 
     return this;
