@@ -48,11 +48,7 @@
                 $('.rangestepper .step').html('');
 
                 //Creat the active node
-                $(this).html("<div class='dragger'><div class='arrow'>&#8801;</div><div class='active'></div></div>");
-
-                //Update the current value
-                $('.rangestepper input[name="' + settings.inputName + '"]').val($(this).data('val'));
-
+                draggerCreate( $(this) );
             }
         });
 
@@ -91,10 +87,22 @@
 
             });
             $('.dragger').remove();
-            closestSnap.html("<div class='dragger'><div class='arrow'>&#8801;</div><div class='active'></div></div>");
-            $('.rangestepper input[name="' + settings.inputName + '"]').val(closestSnap.data('val'));
+
+            //Create the Dragger in the Closest Snap
+            draggerCreate( closestSnap );
 
         });
+
+        function draggerCreate( currentSnap ){
+            currentSnap.html("<div class='dragger'><div class='arrow'>&#8801;</div><div class='active'></div></div>");
+
+            //Set value for the current Snap
+            setCurrentValue( currentSnap );
+        }
+
+        function setCurrentValue( closestSnap ){
+            $('.rangestepper input[name="' + settings.inputName + '"]').val(closestSnap.data('val'));
+        }
 
         return this;
     };
