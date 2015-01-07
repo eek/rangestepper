@@ -36,60 +36,36 @@
         this.append('<span class="stretch"></span><div class="rangeline"></div>');
 
         $(document).on('click', '.rangestepper .step', function () {
-            //Empty other active steps
-            $('.rangestepper .step').html('');
+            if( !$(this).children('.dragger').length ){
 
-            //Creat the active node
-            $(this).html("<div class='dragger'><div class='arrow'>&#8801;</div><div class='active'></div></div>");
+                //Empty other active steps
+                $('.rangestepper .step').html('');
 
-            //Update the current value
-            $(this).parent().data('val', $(this).data('val'));
+                //Creat the active node
+                $(this).html("<div class='dragger'><div class='arrow'>&#8801;</div><div class='active'></div></div>");
+
+                //Update the current value
+                $(this).parent().data('val', $(this).data('val'));
+            }
         });
 
 
         //==================== DRAGGABLE ====================\\
+        $('body').on('mousedown', '.rangestepper .dragger', function() {
+            $(this).addClass('draggable').parents().on('mousemove', function(e) {
+                var draggable = $('.draggable');
 
-        var selected = null, // Object of the element to be moved
-            x_pos = 0, // Stores x coordinates of the mouse pointer
-            x_elem = 0, // Stores left values (edge) of the element
-            x_left = 0;
+                if( draggable.length ){
 
-        // Will be called when user starts dragging an element
-        function drag_init(elem) {
-            // Store the object of the element which needs to be moved
-            selected = elem;
-            x_left = selected.css('left').split('px')[0];
-            x_elem = selected.offset().left - x_left;
+                    draggable.offset({
+                        left: e.pageX - draggable.outerWidth() / 2
+                    });
+                }
 
-        }
-
-        // Will be called when user dragging an element
-        function _move_elem(e) {
-            if (selected !== null) {
-
-                x_pos = document.all ? window.event.clientX : e.pageX;
-
-                console.log('X: ' + x_pos);
-                console.log( 'X elem: ' +  x_elem );
-                console.log( 'X left: ' + x_left );
-
-                //9 pixels to justify courser error (left side instead of middle)
-                selected.css('left', ( x_pos - x_elem - 9 ) + 'px');
-            }
-        }
-
-        // Destroy the object when we are done
-        function _destroy() {
-            selected = null;
-        }
-
-        // Bind the functions...
-        $(document).on('mousedown', '.rangestepper .dragger', function () {
-            drag_init($(this));
+            });
+        }).on('mouseup', function() {
+                $('.draggable').removeClass('draggable');
         });
-
-        document.onmousemove = _move_elem;
-        document.onmouseup = _destroy;
 
         return this;
     };
