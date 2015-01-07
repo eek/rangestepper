@@ -51,20 +51,41 @@
 
 
         //==================== DRAGGABLE ====================\\
+        var lastLeftOffset = 0;
         $('body').on('mousedown', '.rangestepper .dragger', function() {
             $(this).addClass('draggable').parents().on('mousemove', function(e) {
                 var draggable = $('.draggable');
 
                 if( draggable.length ){
+                    lastLeftOffset = e.pageX - draggable.outerWidth() / 2;
 
                     draggable.offset({
-                        left: e.pageX - draggable.outerWidth() / 2
+                        left: lastLeftOffset
                     });
                 }
 
             });
         }).on('mouseup', function() {
-                $('.draggable').removeClass('draggable');
+            var closestSnap = {};
+            var closestSnapDiff = 9999;
+
+            $( ".rangestepper .step" ).each(function() {
+                var leftOffset = $(this).offset().left;
+                var diff = lastLeftOffset - leftOffset;
+
+                if(diff < 0){
+                    diff *= -1;
+                }
+
+                if(diff <= closestSnapDiff){
+                    closestSnapDiff = diff;
+                    closestSnap = $(this);
+                }
+
+            });
+            $('.dragger').remove();
+            closestSnap.html("<div class='dragger'><div class='arrow'>&#8801;</div><div class='active'></div></div>");
+
         });
 
         return this;
