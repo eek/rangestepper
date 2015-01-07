@@ -23,6 +23,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
 }
 
 .dragger {
@@ -61,14 +62,11 @@
 }
 
 .rangestepper .step {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   background-color: #2e2e2e;
-
   border-radius: 50%;
-
   cursor:pointer;
-
   vertical-align: top;
   display: inline-block;
   *display: inline;
@@ -93,7 +91,7 @@
   background-color:#41c00e;
   border-radius: 50%;
   display: inline-block;
-  margin-top: 6px;
+  margin-top: 7px;
 }
 
 .rangestepper .stretch {
