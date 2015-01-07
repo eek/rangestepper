@@ -19,10 +19,14 @@
 <body id="sink" style="background: #363636; padding-top:200px;">
 
 
-    <div id="demo-rangestepper" style="width: 50%; margin-left: 300px;"> </div>
+    <div id="demo-rangestepper" style="width: 50%; margin-left: 300px;"></div>
 
     <script type="text/javascript">
-        $('#demo-rangestepper').rangestepper(-10, 10);
+        $('#demo-rangestepper').rangestepper({
+            inputName: 'rangestepper',
+            minVal: -10,
+            maxVal: 10
+        });
     </script>
 
 
