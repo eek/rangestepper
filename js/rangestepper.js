@@ -15,31 +15,44 @@
             minVal: 0,
             maxVal: 10
         }, options );
-        
+
+        var minLeft = this.offset().left;
+        var maxRight = minLeft + this.width() - 12;
+
         //If it doesn't have the rangestepper class, add it.
         if (!this.hasClass('rangestepper')) {
             this.addClass('rangestepper');
         }
         //Check if settings.minVal and settings.maxVal are integers
-        if (!(settings.minVal === parseInt(settings.minVal, 10)) || !(settings.maxVal === parseInt(settings.maxVal, 10)))
-            return;
+        if (!(settings.minVal === parseInt(settings.minVal, 10)) || !(settings.maxVal === parseInt(settings.maxVal, 10))) return;
 
         //Compute the number of steps required
         var steps = settings.maxVal - settings.minVal;
 
         //If there aren't any steps, exit.
-        if (steps <= 0)
-            return;
+        if (steps <= 0) return;
 
         //Create the actual steps and their value
         for (var i = 0; i <= steps; i++) {
-            var newstep = $("<div class='step' data-val='" + (settings.minVal + i) + "' />");
-            this.append(newstep);
+            var dataValue = settings.minVal + i;
+            var newStep = $("<div class='step' data-val='" + dataValue + "' />");
+
+            this.append(newStep);
+
+            if( settings.minVal == 0 && i == 0 ){
+                draggerCreate( newStep );
+            }else{
+                if( settings.minVal < 0 && dataValue == 0 ){
+                    draggerCreate( newStep );
+                }
+            }
 
             //We need a space to center them with variable space between.
             this.append(' ');
         }
+
         this.append('<span class="stretch"></span><div class="rangeline"></div><input type="hidden" name="' + settings.inputName + '" />');
+
 
         $(document).on('click', '.rangestepper .step', function () {
             if( !$(this).children('.dragger').length ){
@@ -62,6 +75,9 @@
                 if( draggable.length ){
                     lastLeftOffset = e.pageX - draggable.outerWidth() / 2;
 
+                    if( lastLeftOffset < minLeft ) lastLeftOffset = minLeft;
+                    if( lastLeftOffset > maxRight ) lastLeftOffset = maxRight;
+
                     draggable.offset({
                         left: lastLeftOffset
                     });
@@ -76,9 +92,7 @@
                 var leftOffset = $(this).offset().left;
                 var diff = lastLeftOffset - leftOffset;
 
-                if(diff < 0){
-                    diff *= -1;
-                }
+                if(diff < 0) diff *= -1;
 
                 if(diff <= closestSnapDiff){
                     closestSnapDiff = diff;
