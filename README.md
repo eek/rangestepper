@@ -10,6 +10,10 @@ This is why I created rangestepper :) All contributions are more than welcome! :
 
 http://eek.ro/rangestepper
 
+### Image
+
+![Rangestepper.js](http://eek.ro/rangestepper/rangestepper.png)
+
 ## Example Usage
 
 ### HTML
