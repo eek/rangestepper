@@ -1,4 +1,4 @@
-# Rangestepper.js - A jQuery plugin that creates a higly css style-able snappable range input
+# Rangestepper.js - A jQuery plugin that creates a highly css style-able snappable range input
 
 I needed a slider / range input / input of type range that I could customize via css, all the slider plugins are way 
 overkill out there and also the HTML input of range type is customizable but not enough, besides changing the way the
