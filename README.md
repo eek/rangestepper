@@ -8,7 +8,7 @@ This is why I created rangestepper :) All contributions are more than welcome! :
 
 ## Demo & Examples
 
-http://raduamarie.github.io/rangestepper
+http://eek.ro/rangestepper
 
 ## Example Usage
 
