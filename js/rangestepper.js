@@ -13,7 +13,8 @@
         var settings = $.extend({
             inputName: "rangestepper",
             minVal: 0,
-            maxVal: 10
+            maxVal: 10,
+            val: null
         }, options );
 
         var minLeft = this.offset().left;
@@ -38,8 +39,13 @@
             var newStep = $("<div class='step' data-val='" + dataValue + "' />");
 
             this.append(newStep);
-
-            if( settings.minVal == 0 && i == 0 ){
+            //if set and if in range
+            if( settings.val && settings.val >= settings.minVal && settings.val <= settings.maxVal ) {
+                //if current stepper
+                if( i == settings.val ) {
+                    draggerCreate( newStep );
+                }
+            }else if( settings.minVal == 0 && i == 0 ){
                 draggerCreate( newStep );
             }else{
                 if( settings.minVal < 0 && dataValue == 0 ){
@@ -65,7 +71,6 @@
             }
         });
 
-
         //==================== DRAGGABLE ====================\\
         var lastLeftOffset = 0;
         $('body').on('mousedown', '.rangestepper .dragger', function() {
@@ -84,7 +89,7 @@
                 }
 
             });
-        }).on('mouseup', function() {
+        }).on('mouseup', '.rangestepper .dragger', function() {
             var closestSnap = {};
             var closestSnapDiff = 9999;
 
@@ -115,7 +120,10 @@
         }
 
         function setCurrentValue( closestSnap ){
-            $('.rangestepper input[name="' + settings.inputName + '"]').val(closestSnap.data('val'));
+            var $el = $('.rangestepper input[name="' + settings.inputName + '"]');
+            var value = closestSnap.data('val');
+            $el.val(value);
+            $el.trigger('change', value);
         }
 
         return this;
