@@ -14,7 +14,8 @@
             inputName: "rangestepper",
             minVal: 0,
             maxVal: 10,
-            val: null
+            val: null,
+            subscript: false
         }, options );
 
         var minLeft = this.offset().left;
@@ -25,6 +26,10 @@
         if (!this.hasClass('rangestepper')) {
             this.addClass('rangestepper');
         }
+
+        //Add label if user desires it.
+        if( settings.subscript ) this.addClass('subscript');
+
         //Check if settings.minVal and settings.maxVal are integers
         if (!(settings.minVal === parseInt(settings.minVal, 10)) || !(settings.maxVal === parseInt(settings.maxVal, 10))) return;
 
@@ -60,6 +65,8 @@
 
         this.append('<span class="stretch"></span><div class="rangeline"></div><input type="hidden" name="' + settings.inputName + '" />');
         $this.on('click', '.step', function () {
+            lastLeftOffset = $(this).offset().left;
+
             if( !$(this).children('.dragger').length ){
 
                 //Empty other active steps
@@ -71,7 +78,7 @@
         });
 
         //==================== DRAGGABLE ====================\\
-        var lastLeftOffset = 0;
+        var lastLeftOffset = null;
         $this.on('mousedown', '.dragger', function() {
             $(this).addClass('draggable').parents().on('mousemove', function(e) {
                 var draggable = $this.find('.draggable');
@@ -91,6 +98,8 @@
         }).on('mouseup', '.dragger', function() {
             var closestSnap = {};
             var closestSnapDiff = 9999;
+
+            if( lastLeftOffset === null ) lastLeftOffset = $(this).offset().left;
 
             $this.find(".step" ).each(function() {
                 var leftOffset = $(this).offset().left;

@@ -73,6 +73,16 @@
   zoom: 1;
 }
 
+.rangestepper.subscript .step:nth-child(odd):after{
+  content:attr(data-val);
+  color:#595959;
+  font-size: 80%;
+  position: absolute;
+  bottom: -20px;
+  text-align: center;
+  width: 14px;
+}
+
 .rangestepper .rangeline{
   position: absolute;
   top: 5px;

@@ -10,26 +10,26 @@
     <title>Rangestepper - Demo</title>
 
     <link rel="stylesheet" type="text/css" href="css/rangestepper.css">
-
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
-
     <script src="js/rangestepper.js"></script>
 
 </head>
-<body id="sink" style="background: #363636; padding-top:200px;">
+<body id="sink" style="background: #363636;text-align: center;">
 
+    <h2 style="color:#fff; margin-bottom: 200px;">GitHub Repo:
+        <a style="color:aqua; text-decoration:none; font-size: 80%;" href="https://github.com/raduamarie/rangestepper">https://github.com/raduamarie/rangestepper</a>
+    </h2>
 
-    <div id="demo-rangestepper" style="width: 50%; margin-left: 300px;"></div>
+    <div id="demo-rangestepper" style="width: 50%; display: inline-block;"></div>
 
     <script type="text/javascript">
         $('#demo-rangestepper').rangestepper({
             inputName: 'rangestepper',
             minVal: -10,
-            maxVal: 10
+            maxVal: 10,
+            subscript: true
         });
     </script>
-
-
 
 
 </body>
