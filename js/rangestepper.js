@@ -13,11 +13,13 @@
         var settings = $.extend({
             inputName: "rangestepper",
             minVal: 0,
-            maxVal: 10
+            maxVal: 10,
+            val: null
         }, options );
 
         var minLeft = this.offset().left;
         var maxRight = minLeft + this.width() - 12;
+        var $this = $(this);
 
         //If it doesn't have the rangestepper class, add it.
         if (!this.hasClass('rangestepper')) {
@@ -38,8 +40,13 @@
             var newStep = $("<div class='step' data-val='" + dataValue + "' />");
 
             this.append(newStep);
-
-            if( settings.minVal == 0 && i == 0 ){
+            //if set and if in range
+            if( settings.val && settings.val >= settings.minVal && settings.val <= settings.maxVal ) {
+                //if current stepper
+                if( i == settings.val ) {
+                    draggerCreate( newStep );
+                }
+            }else if( settings.minVal == 0 && i == 0 ){
                 draggerCreate( newStep );
             }else{
                 if( settings.minVal < 0 && dataValue == 0 ){
@@ -52,25 +59,22 @@
         }
 
         this.append('<span class="stretch"></span><div class="rangeline"></div><input type="hidden" name="' + settings.inputName + '" />');
-
-
-        $(document).on('click', '.rangestepper .step', function () {
+        $this.on('click', '.step', function () {
             if( !$(this).children('.dragger').length ){
 
                 //Empty other active steps
-                $('.rangestepper .step').html('');
+                $this.find('.step').html('');
 
                 //Creat the active node
                 draggerCreate( $(this) );
             }
         });
 
-
         //==================== DRAGGABLE ====================\\
         var lastLeftOffset = 0;
-        $('body').on('mousedown', '.rangestepper .dragger', function() {
+        $this.on('mousedown', '.dragger', function() {
             $(this).addClass('draggable').parents().on('mousemove', function(e) {
-                var draggable = $('.draggable');
+                var draggable = $this.find('.draggable');
 
                 if( draggable.length ){
                     lastLeftOffset = e.pageX - draggable.outerWidth() / 2;
@@ -84,11 +88,11 @@
                 }
 
             });
-        }).on('mouseup', function() {
+        }).on('mouseup', '.dragger', function() {
             var closestSnap = {};
             var closestSnapDiff = 9999;
 
-            $( ".rangestepper .step" ).each(function() {
+            $this.find(".step" ).each(function() {
                 var leftOffset = $(this).offset().left;
                 var diff = lastLeftOffset - leftOffset;
 
@@ -100,7 +104,7 @@
                 }
 
             });
-            $('.dragger').remove();
+            $this.find('.dragger').remove();
 
             //Create the Dragger in the Closest Snap
             draggerCreate( closestSnap );
@@ -115,7 +119,10 @@
         }
 
         function setCurrentValue( closestSnap ){
-            $('.rangestepper input[name="' + settings.inputName + '"]').val(closestSnap.data('val'));
+            var $el = $this.find("input");
+            var value = closestSnap.data('val');
+            $el.val(value);
+            $el.trigger('change', value);
         }
 
         return this;
