@@ -19,6 +19,7 @@
 
         var minLeft = this.offset().left;
         var maxRight = minLeft + this.width() - 12;
+        var $this = $(this);
 
         //If it doesn't have the rangestepper class, add it.
         if (!this.hasClass('rangestepper')) {
@@ -58,13 +59,11 @@
         }
 
         this.append('<span class="stretch"></span><div class="rangeline"></div><input type="hidden" name="' + settings.inputName + '" />');
-
-
-        $(document).on('click', '.rangestepper .step', function () {
+        $this.on('click', '.step', function () {
             if( !$(this).children('.dragger').length ){
 
                 //Empty other active steps
-                $('.rangestepper .step').html('');
+                $this.find('.step').html('');
 
                 //Creat the active node
                 draggerCreate( $(this) );
@@ -73,9 +72,9 @@
 
         //==================== DRAGGABLE ====================\\
         var lastLeftOffset = 0;
-        $('body').on('mousedown', '.rangestepper .dragger', function() {
+        $this.on('mousedown', '.dragger', function() {
             $(this).addClass('draggable').parents().on('mousemove', function(e) {
-                var draggable = $('.draggable');
+                var draggable = $this.find('.draggable');
 
                 if( draggable.length ){
                     lastLeftOffset = e.pageX - draggable.outerWidth() / 2;
@@ -89,11 +88,11 @@
                 }
 
             });
-        }).on('mouseup', '.rangestepper .dragger', function() {
+        }).on('mouseup', '.dragger', function() {
             var closestSnap = {};
             var closestSnapDiff = 9999;
 
-            $( ".rangestepper .step" ).each(function() {
+            $this.find(".step" ).each(function() {
                 var leftOffset = $(this).offset().left;
                 var diff = lastLeftOffset - leftOffset;
 
@@ -105,7 +104,7 @@
                 }
 
             });
-            $('.dragger').remove();
+            $this.find('.dragger').remove();
 
             //Create the Dragger in the Closest Snap
             draggerCreate( closestSnap );
@@ -120,7 +119,7 @@
         }
 
         function setCurrentValue( closestSnap ){
-            var $el = $('.rangestepper input[name="' + settings.inputName + '"]');
+            var $el = $this.find("input");
             var value = closestSnap.data('val');
             $el.val(value);
             $el.trigger('change', value);
